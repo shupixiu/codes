@@ -1,0 +1,47 @@
+<html>
+<script  type="text/javascript"  src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+$.extend({
+  hello:function(){alert('jqueryhello');}
+  });
+$.fn.extend({
+  hello:function(){alert('jqueryfnhello');}
+  });
+
+var test=function(){
+   var testval=111;                 //后面console输出的时候加的测试代码    
+   this.add.apply(this,arguments); 
+   this.shuchu.call(this,testval);
+
+};
+test.leishuchu =function(val){
+  alert("class shuchu");
+}
+
+test.prototype={
+	add:function(options,refresh){
+         var sum=options.arg1+options.arg2;
+          alert(sum);
+	},
+	shuchu:function(val){
+	  alert(val);
+	},
+	ceshi:function(){
+	  alert("ceshi");
+	},
+	name:"name"
+}
+
+//var a="1"||5;
+//alert(a);
+
+test.leishuchu("aa");
+var testins=new test({arg1:1,arg2:2});
+
+testins.ceshi();
+alert(testins.name);
+$.hello();
+
+console.dir(testins);
+</script>
+</html>
