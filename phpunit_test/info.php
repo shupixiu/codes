@@ -2,7 +2,7 @@
 
    require_once('D:/WAMP/PEAR/pear/PHPUnit/Framework/TestCase.php'); 
    require_once('calculator.php') ;
-
+require_once('remoteConnect.php') ;
 
     class calculatorTest extends PHPUnit_Framework_TestCase 
     { 
@@ -29,6 +29,14 @@
             $r = $this->o->add(102,106); 
             $e = 208; 
             $this->assertTrue($r == $e); 
+        } 
+
+		public function testConnectionIsValid()  
+        {  
+        // test to ensure that the object from an fsockopen is valid  
+           $connObj = new RemoteConnect();  
+           $serverName = 'www.baidu.com';  
+           $this->assertTrue($connObj->connectToServer($serverName) !== false);  
         } 
          
     } 
