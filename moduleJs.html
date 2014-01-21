@@ -1,0 +1,99 @@
+<!--
+ js的自动执行的写法
+-->
+<html>
+<script  type="text/javascript"  src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+function Account(){};
+Account.add=function(){
+   alert("function add");
+};
+ 
+Account.prototype = {
+ reg:function(options){  
+    this.test();
+
+    
+	options=$.extend({
+        name:false,
+        mobile:false,
+        pwd:false,
+        code:false,
+        beforeSend:function(){
+            alert('开始注册');
+        },
+        success:function(data){
+            alert('注册成功');
+        },
+        error:function(){
+            alert('注册错误');
+        }
+    },options || {});
+    
+    if(options.beforeSend){
+        options.beforeSend.apply(self,arguments);
+    }
+
+	console.log(this);
+},
+test:function(){
+  alert("test");
+}
+};
+/*
+Account.prototype.reg=function(options){  
+    //this.test();
+
+    
+	options=$.extend({
+        name:false,
+        mobile:false,
+        pwd:false,
+        code:false,
+        beforeSend:function(){
+            alert('开始注册');
+        },
+        success:function(data){
+            alert('注册成功');
+        },
+        error:function(){
+            alert('注册错误');
+        }
+    },options || {});
+    
+    if(options.beforeSend){
+        options.beforeSend.apply(self,arguments);
+    }
+
+	console.log(this);
+};
+Account.prototype.ceshi={};
+
+*/
+
+
+
+
+
+(function(){
+  accountIns = new Account();
+  console.log(accountIns.constructor);
+  accountIns.reg({
+        name:"regTrueName",
+        mobile:"regMobile",
+        pwd:"regPassword",
+        code:"regCode",
+        beforeSend:function(){
+            alert('正在进行注册...');
+        },
+        success:function(data){
+            alert('成功...');
+        },
+        error:function(){
+            alert('失败...');
+        }
+    });
+}());
+
+</script>
+</html>
