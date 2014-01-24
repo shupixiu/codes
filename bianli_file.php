@@ -21,11 +21,20 @@ function get_files($dir) {
         if ($file != '.' && $file != '..') {
             $filename = $dir . "/"  . $file;
  
+            /**********/
             if(is_file($filename)) {
                 $files[] = $filename;
             }else {
                 $files = array_merge($files, get_files($filename));
             }
+            /************/
+           
+			/**  
+			 *  感觉上面的注释内的代码可以这样写->测试了下输出也是一样的
+			 *  $files = array_merge($files, get_files($filename));
+			 *  
+			 */
+
         }
     }
     $d->close();
