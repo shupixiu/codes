@@ -1,9 +1,28 @@
 <?php
 $x ="D:/WAMP/WWW/svnd3sc/d3sc/Lib/ScoreFrame";
+/*
 $arr =get_files($x);
 echo "<pre>";
 print_r($arr);
 echo  "</pre>";
+*/
+rrmdir($x);
+
+ function rrmdir($dir) { 
+   if (is_dir($dir)) { 
+     $objects = scandir($dir); 
+     foreach ($objects as $object) { 
+       if ($object != "." && $object != "..") { 
+        // if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object); 
+		echo $object;
+       } 
+     } 
+     reset($objects); 
+    // rmdir($dir); 
+   } 
+ } 
+
+
 /**
  * 获取当前目录及子目录下的所有文件
  * @param string $dir 路径名
