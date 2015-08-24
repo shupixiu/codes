@@ -1,0 +1,25 @@
+
+摘抄：
+$redis->muti($mode)->get($key)->set($key)->exec()；
+既然是这样的, 也就是说当我要使用管道执行一万次操作的时候需要写一万次操作在muti()的后面,,,还是我找到更好的写法？
+设计者没有想到这个问题么？今天测试成功了
+<?
+php   $redis = new Redis(); 
+$redis->connect('10.1.132.86', 6379);  
+$pipe = $redis->multi(Redis::PIPELINE); 
+for ($i = 0; $i <  10000; $i++) { 
+	$pipe->set("key::$i", str_pad($i, 4, '0', 0)); 
+	$pipe->get("key::$i"); 
+} 
+	
+$replies = $pipe->exec(); echo " "; print_r($replies); 
+
+multi, exec, discard
+进入或者退出事务模式
+参数可选Redis::MULTI或Redis::PIPELINE. 默认是 Redis::MULTI
+Redis::MULTI：将多个操作当成一个事务执行
+Redis::PIPELINE:让（多条）执行命令简单的，更加快速的发送给服务器，但是没有任何原子性的保证
+discard:删除一个事务
+返回值
+multi()，返回一个redis对象，并进入multi-mode模式，一旦进入multi-mode模式，以后调用的所有方法都会返回相同的对象，只到exec(）方法被调用。
+http://www.cnblogs.com/weafer/archive/2011/09/21/2184059.html
