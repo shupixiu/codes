@@ -1,0 +1,32 @@
+1. 快排的非递归实现
+function quicksortx(&$seq)
+{
+    $stack = array($seq);
+    $sort = array();
+    while ($stack) {
+        $arr = array_pop($stack);
+        if (count($arr) <= 1) {
+            if (count($arr) == 1) {
+                $sort[] = & $arr[0];
+            }
+            continue;
+        }
+
+        $k = $arr[0];
+        $x = array();
+        $y = array();
+        $_size = count($arr);
+        for ($i = 1; $i < $_size; $i++) {
+            if ($arr[$i] <= $k) {
+                $x[] = & $arr[$i];
+            } else {
+                $y[] = & $arr[$i];
+            }
+        }
+
+        !empty($y) && array_push($stack, $y);
+        array_push($stack, array($arr[0]));
+        !empty($x) && array_push($stack, $x);
+    }
+    return $sort;
+}
