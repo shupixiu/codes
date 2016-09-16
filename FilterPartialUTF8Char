@@ -1,0 +1,14 @@
+/*
+ * 过滤不完整的UTF8字符，UTF8的合法字符范围为：
+ *     一字节字符：0x00-0x7F
+ *     二字节字符：0xC0-0xDF 0x80-0xBF
+ *     三字节字符：0xE0-0xEF 0x80-0xBF 0x80-0xBF
+ *     四字节字符：0xF0-0xF7 0x80-0xBF 0x80-0xBF 0x80-0xBF
+ */
+function FilterPartialUTF8Char($str)
+{
+ $str = preg_replace("/[\\xC0-\\xDF](?=[\\x00-\\x7F\\xC0-\\xDF\\xE0-\\xEF\\xF0-\\xF7]|$)/", "", $str);
+ $str = preg_replace("/[\\xE0-\\xEF][\\x80-\\xBF]{0,1}(?=[\\x00-\\x7F\\xC0-\\xDF\\xE0-\\xEF\\xF0-\\xF7]|$)/", "", $str);
+ $str = preg_replace("/[\\xF0-\\xF7][\\x80-\\xBF]{0,2}(?=[\\x00-\\x7F\\xC0-\\xDF\\xE0-\\xEF\\xF0-\\xF7]|$)/", "", $str);
+ return $str;
+}
