@@ -1,0 +1,24 @@
+理论部分前面各位都说过了，确实也都是对的。但是php有一点不同。
+默认配置中，php并没有严格要求 :: 一定调用的是static方法
+测试以下代码就可以知道
+class t{
+    public $v = 1;
+    public function getVar(){
+        return 1;//$this->v;
+    }
+}
+
+class xxxxx
+{
+public function actionIndex()
+    {
+$x = t::getVar();
+        $t = new t();
+        $x = $t->getVar();
+    }
+}
+
+作者：楚天乐
+链接：https://www.zhihu.com/question/19782824/answer/35943595
+来源：知乎
+著作权归作者所有，转载请联系作者获得授权。
